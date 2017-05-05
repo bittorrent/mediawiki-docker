@@ -39,7 +39,8 @@ RUN set -x; \
         https://gerrit.wikimedia.org/r/p/mediawiki/core.git \
         /usr/src/mediawiki \
     && cd /usr/src/mediawiki \
-    && git clone --depth 1 -b REL1_28 https://gerrit.wikimedia.org/r/p/mediawiki/vendor.git
+    && git clone --depth 1 -b REL1_28 https://gerrit.wikimedia.org/r/p/mediawiki/vendor.git \
+    && git clone --depth 1 -b REL1_28 https://phabricator.wikimedia.org/diffusion/SVEC/Vector skins/Vector
 
 COPY php.ini /usr/local/etc/php/conf.d/mediawiki.ini
 
