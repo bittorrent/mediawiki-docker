@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM debian:jessie
 MAINTAINER Gabriel Wicke <gwicke@wikimedia.org>
 
 # Waiting in antiticipation for built-time arguments
@@ -21,7 +21,6 @@ RUN set -x; \
         git \
         php-pear \
     && pear install mail \
-    && pear install net_smtp \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt/archives/* \
     && a2enmod rewrite \
@@ -38,17 +37,7 @@ RUN set -x; \
         --depth 1 \
         -b $MEDIAWIKI_VERSION \
         https://gerrit.wikimedia.org/r/p/mediawiki/core.git \
-        /usr/src/mediawiki \
-    && cd /usr/src/mediawiki \
-    && git submodule update --init skins \
-    && git submodule update --init vendor \
-    && cd extensions \
-    # VisualEditor
-    # TODO: make submodules shallow clones?
-    && git submodule update --init VisualEditor \
-    && cd VisualEditor \
-    && git checkout $MEDIAWIKI_VERSION \
-    && git submodule update --init
+        /usr/src/mediawiki
 
 COPY php.ini /usr/local/etc/php/conf.d/mediawiki.ini
 
